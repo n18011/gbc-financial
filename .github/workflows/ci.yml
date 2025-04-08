@@ -55,6 +55,10 @@ jobs:
     if: github.event_name == 'pull_request' && github.base_ref == 'main'
     # test ジョブが成功した場合のみ実行
     needs: test
+    permissions:
+      contents: read
+      packages: write
+      actions: read
     steps:
       # 1. リポジトリのコードをチェックアウト (プルリクエストのコードを取得)
       - name: Checkout code
