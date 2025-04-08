@@ -41,10 +41,10 @@ jobs:
       # - name: Install dependencies
       #   run: pip install -r requirements.txt # 依存パッケージのインストール
 
-      # 3. テストの実行 (プロジェクトに合わせて変更してください)
+      # 3. 単体テストの実行 (プロジェクトに合わせて変更してください)
       - name: Run tests
-        run: echo "Running tests..." # ここに実際のテストコマンドを記述 (例: npm test, pytest など)
-
+        # run: echo "Running tests..." # ここに実際のテストコマンドを記述 (例: npm test, pytest など)
+        run: bun test:unit
   # Docker イメージをビルドするジョブ
   build:
     runs-on: ubuntu-latest
@@ -80,14 +80,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # 4. Docker イメージのビルド
-      - name: Build Docker image
+      - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
           context: . # Dockerfile があるディレクトリのパス
           file: ./Dockerfile # Dockerfile のパス (デフォルトは context/Dockerfile)
           # push: false # 今回はビルドのみ実行。レジストリにプッシュする場合は true に設定
           push: true # 今回はビルドのみ実行。レジストリにプッシュする場合は true に設定
-          tags: gbc-financial:${{ github.run_number }} # タグを自動的にインクリメントするためにrun_numberを使用
+          tags: ghcr.io/${{ github.repository_owner }}/gbc-financial:${{ github.run_number }}
           # 必要に応じてビルド引数 (build-args) などを追加できます
           # build-args: |
           #   ARG_NAME=value
