@@ -41,7 +41,10 @@ jobs:
       # - name: Install dependencies
       #   run: pip install -r requirements.txt # 依存パッケージのインストール
 
-      # 3. 単体テストの実行 (プロジェクトに合わせて変更してください)
+      # 3. Playwright browsers are installed
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      # 4. 単体テストの実行 (プロジェクトに合わせて変更してください)
       - name: Run tests
         # run: echo "Running tests..." # ここに実際のテストコマンドを記述 (例: npm test, pytest など)
         run: bun test:unit
