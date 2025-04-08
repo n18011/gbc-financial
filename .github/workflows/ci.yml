@@ -94,7 +94,7 @@ jobs:
           file: ./Dockerfile # Dockerfile のパス (デフォルトは context/Dockerfile)
           # push: false # 今回はビルドのみ実行。レジストリにプッシュする場合は true に設定
           push: true # 今回はビルドのみ実行。レジストリにプッシュする場合は true に設定
-          tags: ghcr.io/${{ github.repository_owner }}/gbc-financial:${{ github.run_number }}
+          tags: ghcr.io/${{ github.repository_owner }}/gbc-financial:${{ github.ref_name }}
           # 必要に応じてビルド引数 (build-args) などを追加できます
           # build-args: |
           #   ARG_NAME=value
