@@ -90,7 +90,7 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
         with:
-          path: package.json
+          path: ./package.json
       # 4. Docker イメージのビルド
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
