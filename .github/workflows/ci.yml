@@ -86,6 +86,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+        with:
+          path: package.json
       # 4. Docker イメージのビルド
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
@@ -94,7 +99,7 @@ jobs:
           file: ./Dockerfile # Dockerfile のパス (デフォルトは context/Dockerfile)
           # push: false # 今回はビルドのみ実行。レジストリにプッシュする場合は true に設定
           push: true # 今回はビルドのみ実行。レジストリにプッシュする場合は true に設定
-          tags: ghcr.io/${{ github.repository_owner }}/gbc-financial:${{ github.ref_name }}
+          tags: ghcr.io/${{ github.repository_owner }}/gbc-financial:v${{ steps.package-version.outputs.current-version }}
           # 必要に応じてビルド引数 (build-args) などを追加できます
           # build-args: |
           #   ARG_NAME=value
